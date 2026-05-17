@@ -486,7 +486,7 @@ Instead of focusing on algorithms or endless scrolling, ShowUp focuses on helpin
         <GradualBlur preset="footer" height="6rem" strength={2} curve="ease-out" opacity={0.8} />
       </section>
 
-      <footer className={`App-footer${contactExpanded ? ' App-footer--expanded' : ''}`}>
+      <footer className="App-footer">
         <div className="App-footer-field">
           <DotField
             dotRadius={1.8}
@@ -504,7 +504,7 @@ Instead of focusing on algorithms or endless scrolling, ShowUp focuses on helpin
           <motion.div
             className={`App-footer-panel${contactExpanded ? ' App-footer-panel--expanded' : ''}`}
             layout
-            transition={{ type: 'spring', stiffness: 100, damping: 18 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 25 }}
           >
             <AnimatePresence mode="wait">
               {!contactExpanded ? (
@@ -514,7 +514,7 @@ Instead of focusing on algorithms or endless scrolling, ShowUp focuses on helpin
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.25 }}
                 >
                   <div className="App-footer-col">
                     <h4 className="App-footer-heading">Try ShowUp on</h4>
@@ -560,7 +560,7 @@ Instead of focusing on algorithms or endless scrolling, ShowUp focuses on helpin
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.35, delay: 0.15 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
                 >
                   <h3 className="App-footer-contact-title">Get in Touch</h3>
                   <p className="App-footer-contact-sub">
@@ -598,16 +598,12 @@ Instead of focusing on algorithms or endless scrolling, ShowUp focuses on helpin
               )}
             </AnimatePresence>
           </motion.div>
-          <motion.div
-            className="App-footer-panel App-footer-panel--brand"
-            layout
-            transition={{ type: 'spring', stiffness: 100, damping: 18 }}
-          >
+          <div className="App-footer-panel App-footer-panel--brand">
             <div className="App-footer-bottom">
               <LogoIcon size={50} style={{ opacity: 0.12 }} />
               <span className="App-footer-brand">SHOWUP</span>
             </div>
-          </motion.div>
+          </div>
         </div>
       </footer>
     </div>
