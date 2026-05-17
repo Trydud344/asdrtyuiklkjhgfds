@@ -1,0 +1,136 @@
+.signal-meter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.signal-meter-label {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--color-text-tertiary);
+}
+
+.signal-meter-display {
+  display: flex;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+.signal-meter-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 120px;
+}
+
+.signal-meter-bar-track {
+  width: 14px;
+  height: 100%;
+  background: var(--color-neutral-800);
+  border-radius: 7px;
+  position: relative;
+  overflow: hidden;
+}
+
+.signal-meter-bar-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bar-color);
+  border-radius: 7px;
+  box-shadow:
+    0 0 8px var(--bar-glow),
+    0 0 20px var(--bar-glow);
+}
+
+.signal-meter-bar-glow {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 11px;
+  opacity: 0;
+  background: transparent;
+  box-shadow: 0 0 30px var(--bar-glow);
+  animation: signal-pulse 2s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.signal-meter-bar-glow.active {
+  animation-play-state: running;
+}
+
+@keyframes signal-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+.signal-meter-score {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.signal-meter-number {
+  font-family: var(--font-body);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.signal-meter-max {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+.signal-meter-ticks {
+  display: flex;
+  justify-content: space-between;
+  width: calc(5 * 14px + 4 * 6px);
+  padding: 0 7px;
+}
+
+.signal-meter-ticks span {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+  text-align: center;
+  width: 14px;
+}
+
+@media (max-width: 768px) {
+  .signal-meter-display {
+    gap: 1rem;
+  }
+  .signal-meter-bars {
+    height: 80px;
+  }
+  .signal-meter-bar-track {
+    width: 10px;
+    border-radius: 5px;
+  }
+  .signal-meter-bar-fill {
+    border-radius: 5px;
+  }
+  .signal-meter-number {
+    font-size: 1.75rem;
+  }
+  .signal-meter-ticks {
+    width: calc(5 * 10px + 4 * 6px);
+  }
+  .signal-meter-ticks span {
+    font-size: 0.5rem;
+    width: 10px;
+  }
+}

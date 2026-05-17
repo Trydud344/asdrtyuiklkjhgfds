@@ -1,0 +1,964 @@
+.App {
+  background-color: var(--color-surface-background);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* ── Hero ── */
+
+.App-hero {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  position: relative;
+  overflow: visible;
+  clip-path: inset(0);
+}
+
+.App-hero-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(ellipse 80% 60% at 50% 90%, rgba(255, 77, 0, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.App-rays-background {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Fallback when WebGL canvas is empty */
+.App-rays-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 100%,
+    rgba(255, 77, 0, 0.08) 0%,
+    rgba(255, 77, 0, 0.03) 30%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.App-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.App-logo {
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 30px rgba(255, 77, 0, 0.2));
+}
+
+.App-headline {
+  color: var(--color-text-primary);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.02em;
+  max-width: 900px;
+}
+
+.App-subheadline {
+  color: var(--color-text-tertiary);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.App-scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+}
+
+.App-scroll-indicator-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.App-scroll-indicator-text {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+}
+
+/* ── Divider ── */
+
+.App-divider {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 3rem clamp(1rem, 4vw, 4rem);
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.App-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-border-default) 20%,
+    var(--color-border-strong) 50%,
+    var(--color-border-default) 80%,
+    transparent
+  );
+}
+
+.App-divider-text {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+}
+
+/* ── Section Headers ── */
+
+.App-section-header {
+  text-align: center;
+  padding: 0 clamp(1rem, 3vw, 4rem) 3rem;
+}
+
+.App-section-title {
+  color: var(--color-text-primary);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.App-section-sub {
+  color: var(--color-text-secondary);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.7;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Features / Cards ── */
+
+.App-features {
+  padding: 2rem 0 4rem;
+}
+
+.App-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
+  padding: 0 clamp(1rem, 3vw, 4rem);
+  margin: 0 auto;
+  max-width: 1400px;
+  width: 100%;
+  transition: opacity 0.4s ease;
+}
+
+.App-cards--dimmed {
+  opacity: 0.4;
+}
+
+.App-card-slot {
+  aspect-ratio: 3 / 2;
+}
+
+.App-card-wrapper {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.App-card-wrapper .border-glow-card {
+  width: 100%;
+  height: 100%;
+}
+
+.App-card-content {
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.App-card-title {
+  color: var(--color-text-primary);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.App-card-desc {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.App-icon-square {
+  width: 48px;
+  height: 48px;
+  background: var(--color-neutral-900);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Expanded Card Overlay ── */
+
+.App-overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--color-surface-overlay);
+}
+
+.App-expanded-card {
+  position: fixed;
+  top: 4%;
+  left: 4%;
+  right: 4%;
+  bottom: 4%;
+  z-index: 101;
+  display: grid;
+}
+
+.App-expanded-card .border-glow-card {
+  width: 100%;
+  height: 100%;
+}
+
+.App-expanded-content {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 100%;
+  overflow: hidden;
+  gap: 2.5rem;
+}
+
+.App-expanded-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  flex: 0 0 320px;
+  min-width: 260px;
+}
+
+.App-expanded-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0.5rem;
+}
+
+.App-expanded-title {
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.App-expanded-desc {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.App-expanded-icon-square {
+  width: 56px;
+  height: 56px;
+  background: var(--color-neutral-900);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+.App-expanded-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  overflow-y: auto;
+}
+
+.App-expanded-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+  background: var(--color-neutral-900);
+  border: 1px solid var(--color-border-default);
+  border-radius: 999px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  align-self: flex-start;
+}
+
+.App-expanded-pill:hover {
+  background: var(--color-neutral-800);
+  border-color: var(--color-border-strong);
+}
+
+.App-expanded-pill--active {
+  background: var(--color-neutral-800);
+  border-color: var(--color-border-strong);
+}
+
+.App-expanded-pill-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border-strong);
+  flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.App-expanded-pill-label {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.App-expanded-right {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  background: var(--color-neutral-900);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+}
+
+.App-expanded-text-panel {
+  max-width: 640px;
+}
+
+.App-expanded-section-title {
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  font-weight: 700;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.App-expanded-section-text {
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.App-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 102;
+  background: var(--color-neutral-900);
+  border: 1px solid var(--color-border-default);
+  color: var(--color-text-secondary);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  outline: none;
+}
+
+.App-close-btn:hover {
+  background: var(--color-neutral-800);
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+}
+
+/* ── Moderation Section ── */
+
+.App-moderation-section {
+  padding: 0 clamp(1rem, 3vw, 4rem) 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.App-moderation-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.App-moderation-header .App-section-sub {
+  max-width: 600px;
+  margin: 1rem auto 0;
+}
+
+.App-moderation-message {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.App-moderation-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1rem 1.25rem;
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+}
+
+.App-moderation-line p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.App-moderation-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FF4D00;
+  box-shadow: 0 0 10px rgba(255, 77, 0, 0.4);
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+
+/* ── Identity Section ── */
+
+.App-identity-section {
+  padding: 0 clamp(1rem, 3vw, 4rem) 6rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.App-identity-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.App-identity-icon-ring {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--color-primary-subtle);
+  border: 1px solid rgba(255, 77, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 40px rgba(255, 77, 0, 0.06);
+}
+
+.App-identity-title {
+  margin: 0;
+}
+
+.App-identity-warning {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-error);
+  margin: 0.5rem 0 0;
+  line-height: 1.6;
+}
+
+/* ── Footer ── */
+
+.App-footer {
+  position: relative;
+  padding: 0;
+  border-top: 1px solid var(--color-border-default);
+  overflow: hidden;
+}
+
+.App-footer-field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.App-footer-content {
+  position: relative;
+  z-index: 1;
+  padding: 4rem clamp(1.5rem, 5vw, 4rem) 3rem;
+}
+
+.App-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.App-footer-col {
+  text-align: left;
+}
+
+.App-footer-heading {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  opacity: 0.55;
+  margin: 0 0 1.25rem;
+}
+
+.App-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.App-footer-links li a {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.App-footer-links li a:hover {
+  color: var(--color-text-primary);
+}
+
+.App-footer-bottom {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 4rem;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.App-footer-brand {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: var(--color-text-tertiary);
+  opacity: 0.5;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 1024px) {
+  .App-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .App-hero {
+    height: 100dvh;
+    width: 100%;
+  }
+
+  .App-content {
+    padding: 0 1.25rem;
+  }
+
+  .App-headline {
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
+  }
+
+  .App-subheadline {
+    font-size: clamp(0.85rem, 3.5vw, 1rem);
+  }
+
+  .App-logo {
+    margin-bottom: 1.5rem;
+  }
+
+  .App-cards {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0 0.75rem;
+  }
+
+  .App-card-slot {
+    aspect-ratio: unset;
+    height: clamp(140px, 28vw, 180px);
+  }
+
+  .App-card-content {
+    padding: 1.25rem;
+  }
+
+  .App-card-title {
+    font-size: 1.1rem;
+  }
+
+  .App-card-desc {
+    font-size: 0.9rem;
+  }
+
+  .App-icon-square {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    margin-bottom: 0.6rem;
+  }
+
+  .App-icon-square svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .App-expanded-card {
+    top: 4%;
+    left: 2%;
+    right: 2%;
+    bottom: 4%;
+  }
+
+  .App-expanded-content {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    overflow-y: auto;
+  }
+
+  .App-expanded-left {
+    flex: 0 0 auto;
+    min-width: unset;
+    gap: 1rem;
+  }
+
+  .App-expanded-header {
+    align-items: center;
+    text-align: center;
+  }
+
+  .App-expanded-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .App-expanded-pill {
+    padding: 0.55rem 0.9rem;
+  }
+
+  .App-expanded-pill-label {
+    font-size: 0.95rem;
+  }
+
+  .App-expanded-right {
+    padding: 1.5rem;
+  }
+
+  .App-expanded-icon-square {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+
+  .App-expanded-title {
+    font-size: 1.3rem;
+  }
+
+  .App-expanded-desc {
+    font-size: 0.95rem;
+  }
+
+  .App-expanded-section-title {
+    font-size: 1.25rem;
+  }
+
+  .App-expanded-section-text {
+    font-size: 1rem;
+  }
+
+  .App-close-btn {
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
+  }
+
+  .App-identity-section {
+    padding-bottom: 4rem;
+  }
+
+  .App-divider {
+    padding: 2rem 1.25rem;
+    gap: 1rem;
+  }
+
+  .App-footer-content {
+    padding: 3rem 1.25rem 2rem;
+  }
+
+  .App-footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 1.5rem;
+  }
+
+  .App-footer-bottom {
+    margin-top: 2.5rem;
+  }
+
+  .App-expanded-card {
+    top: env(safe-area-inset-top, 2%);
+    left: 2%;
+    right: 2%;
+    bottom: env(safe-area-inset-bottom, 2%);
+    border-radius: var(--radius-lg);
+  }
+
+  .App-close-btn {
+    top: max(10px, env(safe-area-inset-top));
+    right: max(10px, env(safe-area-inset-right));
+  }
+
+  .App-content {
+    padding: 0 1rem;
+  }
+
+  .App-headline {
+    font-size: clamp(1.4rem, 6.5vw, 2rem);
+  }
+
+  .App-subheadline {
+    font-size: clamp(0.8rem, 3.2vw, 0.95rem);
+  }
+
+  .App-section-title {
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
+  }
+
+  .App-section-sub {
+    font-size: clamp(0.82rem, 3vw, 0.9rem);
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .App-expanded-content {
+    padding: 1rem;
+  }
+
+  .App-expanded-long-desc {
+    font-size: 0.8rem;
+  }
+
+  .App-expanded-stat-value {
+    font-size: 1.4rem;
+  }
+
+  .App-expanded-list li {
+    font-size: 0.78rem;
+  }
+
+  .App-expanded-stat-row {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .App-hero {
+    min-height: 100dvh;
+    width: 100%;
+  }
+
+  .App-logo {
+    margin-bottom: 1rem;
+  }
+
+  .App-logo svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .App-headline {
+    font-size: clamp(1.25rem, 7vw, 1.6rem);
+  }
+
+  .App-subheadline {
+    font-size: clamp(0.75rem, 3.8vw, 0.9rem);
+  }
+
+  .App-card-slot {
+    height: auto;
+    min-height: 120px;
+  }
+
+  .App-card-content {
+    padding: 1rem;
+  }
+
+  .App-expanded-card {
+    top: 1%;
+    left: 1%;
+    right: 1%;
+    bottom: 1%;
+  }
+
+  .App-expanded-content {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .App-expanded-left {
+    gap: 0.75rem;
+  }
+
+  .App-expanded-buttons {
+    gap: 0.4rem;
+  }
+
+  .App-expanded-pill {
+    padding: 0.45rem 0.8rem;
+  }
+
+  .App-expanded-pill-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .App-expanded-pill-label {
+    font-size: 0.9rem;
+  }
+
+  .App-expanded-right {
+    padding: 1rem;
+  }
+
+  .App-expanded-icon-square {
+    width: 40px;
+    height: 40px;
+  }
+
+  .App-expanded-title {
+    font-size: 1.15rem;
+  }
+
+  .App-expanded-desc {
+    font-size: 0.9rem;
+  }
+
+  .App-expanded-section-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .App-expanded-section-text {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .App-close-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .App-divider {
+    padding: 1.5rem 1rem;
+  }
+
+  .App-footer-content {
+    padding: 2.5rem 1rem 2rem;
+  }
+
+  .App-footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem 1.25rem;
+  }
+
+  .App-footer-heading {
+    font-size: 0.625rem;
+    margin-bottom: 1rem;
+  }
+
+  .App-footer-links li a {
+    font-size: 0.75rem;
+  }
+
+  .App-footer-bottom {
+    margin-top: 2rem;
+  }
+
+  .App-footer-brand {
+    font-size: 0.875rem;
+  }
+}

@@ -1,0 +1,41 @@
+.gradual-blur-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.gradual-blur {
+  background: linear-gradient(to top, var(--color-surface-background, #050505), transparent);
+}
+
+.gradual-blur-inner > div {
+  will-change: backdrop-filter;
+}
+
+.gradual-blur-inner {
+  transform: translateZ(0);
+}
+
+.gradual-blur-parent {
+}
+
+.gradual-blur-inner {
+  pointer-events: none;
+}
+
+.gradual-blur-fixed {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .gradual-blur-inner > div {
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,112 @@
+.verdict-badge {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  background: var(--color-neutral-900);
+  border: 1px solid var(--color-border-default);
+  overflow: hidden;
+}
+
+.verdict-badge-inner {
+  background: var(--color-surface-sunken);
+  border-radius: 15px;
+  padding: 1.5rem 1.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.verdict-badge-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.verdict-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 10px var(--verdict-border);
+}
+
+.verdict-badge-status {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--verdict-text);
+}
+
+.verdict-badge-desc {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.verdict-badge-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--verdict-border) 90deg,
+    var(--verdict-border) 180deg,
+    transparent 270deg,
+    var(--verdict-border) 360deg
+  );
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 1px));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 1px));
+  animation: verdict-ring-spin 8s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes verdict-ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .verdict-badge-inner {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .verdict-badge-status {
+    font-size: 0.8rem;
+  }
+
+  .verdict-badge-desc {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .verdict-badge-inner {
+    padding: 1rem;
+  }
+
+  .verdict-badge-label {
+    gap: 8px;
+    margin-bottom: 0.35rem;
+  }
+
+  .verdict-dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .verdict-badge-status {
+    font-size: 0.75rem;
+  }
+
+  .verdict-badge-desc {
+    font-size: 0.7rem;
+    line-height: 1.45;
+  }
+}
