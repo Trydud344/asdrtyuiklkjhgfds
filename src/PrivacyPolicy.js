@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Scale, Shield, Eye, Clock, MapPin, FileImage, Lock, GitBranch, Mail } from 'lucide-react';
+import { Shield, Eye, Clock, MapPin, FileImage, Lock, GitBranch, Mail } from 'lucide-react';
 import './PrivacyPolicy.css';
 
 function PrivacyPolicy() {
@@ -17,7 +17,7 @@ function PrivacyPolicy() {
           transition={{ duration: 0.6 }}
         >
           <div className="PrivacyPolicy-icon-ring">
-            <Scale size={40} color="#FF4D00" strokeWidth={1.5} />
+            <img src="/logo.png" alt="" width="100" height="100" />
           </div>
           <h1 className="PrivacyPolicy-title">Privacy Policy</h1>
           <p className="PrivacyPolicy-updated">Last updated: May 17, 2026</p>
@@ -211,7 +211,7 @@ function PrivacyPolicy() {
           transition={{ duration: 0.5 }}
         >
           <div className="PrivacyPolicy-section-header">
-            <Scale size={20} color="#FF4D00" strokeWidth={1.5} />
+            <img src="/logo.png" alt="" width="50" height="50" />
             <h2>Changes to This Policy</h2>
           </div>
           <p>
@@ -238,7 +238,7 @@ function PrivacyPolicy() {
 
       <footer className="PrivacyPolicy-footer">
         <button className="PrivacyPolicy-back" onClick={handleBack}>
-          <Scale size={16} color="rgba(255,255,255,0.5)" strokeWidth={1.5} />
+          <img src="/logo.png" alt="" width="40" height="40" style={{ opacity: 0.5 }} />
           <span>Back to ShowUp</span>
         </button>
         <span className="PrivacyPolicy-footer-brand">SHOWUP</span>

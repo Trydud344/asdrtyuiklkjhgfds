@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { Shield, Scale, Eye, ChevronDown } from 'lucide-react';
+import { UserX, Eye, ChevronDown } from 'lucide-react';
 import LightRays from './components/LightRays';
 import ShinyText from './components/ShinyText';
 import BorderGlow from './components/BorderGlow';
@@ -8,15 +8,20 @@ import MapGrid from './components/MapGrid';
 import ParticleField from './components/ParticleField';
 import GradualBlur from './components/GradualBlur';
 import DotField from './components/DotField';
+import ScrollReveal from './components/ScrollReveal';
 import PrivacyPolicy from './PrivacyPolicy';
 import About from './About';
 import './App.css';
+
+const LogoIcon = ({ size = 24, style = {} }) => (
+  <img src="/logo.png" alt="" width={size} height={size} style={{ display: 'block', ...style }} />
+);
 
 const features = [
   {
     title: 'Privacy',
     tagline: 'You are a presence, not a profile.',
-    icon: Shield,
+    icon: UserX,
     color: '#2979FF',
     sections: [
       {
@@ -44,7 +49,7 @@ const features = [
   {
     title: 'Integrity',
     tagline: 'Trust built through real presence.',
-    icon: Scale,
+    icon: LogoIcon,
     color: '#FF4D00',
     sections: [
       {
@@ -167,7 +172,7 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            <Scale size={56} color="#FF4D00" strokeWidth={1.5} />
+            <LogoIcon size={140} />
           </motion.div>
           <h1 className="App-headline">
             <ShinyText
@@ -210,6 +215,25 @@ function App() {
         <GradualBlur preset="footer" height="8rem" strength={2.5} curve="ease-out" opacity={0.9} />
       </section>
 
+      <section className="App-about-section">
+        <div className="App-about-content">
+          <ScrollReveal
+            baseOpacity={0}
+            enableBlur={true}
+            baseRotation={0.5}
+            blurStrength={7}
+            textClassName="App-about-scroll-text"
+          >{`ShowUp is a platform built to help people organize, discover, and follow real-world events happening around them.
+
+Whether it's a parade, marathon, concert, local gathering, or public demonstration, ShowUp makes coordination simple through live maps, event updates, and community-driven interaction.
+
+The app is designed to feel fast, direct, and easy to use, without unnecessary clutter.
+
+Instead of focusing on algorithms or endless scrolling, ShowUp focuses on helping people connect in the real world and stay informed about what's happening nearby.`}</ScrollReveal>
+        </div>
+        <GradualBlur preset="footer" height="5rem" strength={1.5} curve="ease-out" opacity={0.7} />
+      </section>
+
       <section className="App-features">
         <div className="App-section-header">
           <motion.h2
@@ -247,6 +271,8 @@ function App() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, transition: { duration: 0.15 } }}
                     transition={{ duration: 0.4, delay: i * 0.05 }}
+                    whileHover={{ scale: 0.985, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
+                    whileTap={{ scale: 0.90, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
                   >
                     <BorderGlow {...glowProps} colors={[feature.color, '#E8E8E8', feature.color]}>
                       <div className="App-card-content">
@@ -263,6 +289,15 @@ function App() {
             </div>
           ))}
         </div>
+        <motion.p
+          className="App-cards-hint"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          Click to learn more
+        </motion.p>
       </section>
 
       <AnimatePresence>
@@ -314,7 +349,7 @@ function App() {
                         <div className="App-expanded-icon-square">
                           {(() => {
                             const Icon = features[expandedIndex].icon;
-                            return <Icon size={32} color="#FFFFFF" strokeWidth={2} />;
+                            return <Icon size={24} color="#FFFFFF" strokeWidth={2} />;
                           })()}
                         </div>
                         <h2 className="App-expanded-title">{features[expandedIndex].title}</h2>
@@ -382,12 +417,6 @@ function App() {
         )}
       </AnimatePresence>
 
-      <div className="App-divider">
-        <div className="App-divider-line" />
-        <span className="App-divider-text">MODERATION</span>
-        <div className="App-divider-line" />
-      </div>
-
       <section className="App-moderation-section">
         <motion.div
           className="App-moderation-header"
@@ -430,12 +459,6 @@ function App() {
         <GradualBlur preset="footer" height="5rem" strength={1.5} curve="ease-out" opacity={0.7} />
       </section>
 
-      <div className="App-divider">
-        <div className="App-divider-line" />
-        <span className="App-divider-text">IDENTITY</span>
-        <div className="App-divider-line" />
-      </div>
-
       <section className="App-identity-section">
         <ParticleField density={0.4} />
         <motion.div
@@ -446,7 +469,7 @@ function App() {
           transition={{ duration: 0.7 }}
         >
           <div className="App-identity-icon-ring">
-            <Scale size={40} color="#FF4D00" strokeWidth={1.5} />
+            <LogoIcon size={100} />
           </div>
           <h2 className="App-section-title App-identity-title">Zero-Identity Architecture</h2>
           <p className="App-section-sub" style={{ maxWidth: '600px', margin: '0 auto' }}>
@@ -477,40 +500,44 @@ function App() {
           />
         </div>
         <div className="App-footer-content">
-          <div className="App-footer-grid">
-            <div className="App-footer-col">
-              <h4 className="App-footer-heading">Try ShowUp on</h4>
-              <ul className="App-footer-links">
-                <li><a href="#">iOS</a></li>
-                <li><a href="#">Android</a></li>
-              </ul>
-            </div>
-            <div className="App-footer-col">
-              <h4 className="App-footer-heading">Developers</h4>
-              <ul className="App-footer-links">
-                <li><a href="#">API Overview</a></li>
-                <li><a href="#">Documentation</a></li>
-                <li><a href="#">Open Source</a></li>
-                <li><a href="#">GitHub</a></li>
-              </ul>
-            </div>
-            <div className="App-footer-col">
-              <h4 className="App-footer-heading">Company</h4>
-              <ul className="App-footer-links">
-                <li><a href="#/about">About</a></li>
-                <li><a href="#">Contact</a></li>
-              </ul>
-            </div>
-            <div className="App-footer-col">
-              <h4 className="App-footer-heading">Resources</h4>
-              <ul className="App-footer-links">
-                <li><a href="#/privacy">Privacy Policy</a></li>
-              </ul>
+          <div className="App-footer-panel">
+            <div className="App-footer-grid">
+              <div className="App-footer-col">
+                <h4 className="App-footer-heading">Try ShowUp on</h4>
+                <ul className="App-footer-links">
+                  <li><a href="#">iOS</a></li>
+                  <li><a href="#">Android</a></li>
+                </ul>
+              </div>
+              <div className="App-footer-col">
+                <h4 className="App-footer-heading">Developers</h4>
+                <ul className="App-footer-links">
+                  <li><a href="#">API Overview</a></li>
+                  <li><a href="#">Documentation</a></li>
+                  <li><a href="#">Open Source</a></li>
+                  <li><a href="#">GitHub</a></li>
+                </ul>
+              </div>
+              <div className="App-footer-col">
+                <h4 className="App-footer-heading">Company</h4>
+                <ul className="App-footer-links">
+                  <li><a href="#/about">About</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </div>
+              <div className="App-footer-col">
+                <h4 className="App-footer-heading">Resources</h4>
+                <ul className="App-footer-links">
+                  <li><a href="#/privacy">Privacy Policy</a></li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div className="App-footer-bottom">
-            <Scale size={20} color="rgba(255,255,255,0.12)" strokeWidth={1.5} />
-            <span className="App-footer-brand">SHOWUP</span>
+          <div className="App-footer-panel App-footer-panel--brand">
+            <div className="App-footer-bottom">
+              <LogoIcon size={50} style={{ opacity: 0.12 }} />
+              <span className="App-footer-brand">SHOWUP</span>
+            </div>
           </div>
         </div>
       </footer>
