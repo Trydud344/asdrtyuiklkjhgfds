@@ -569,7 +569,8 @@
   position: relative;
   padding: 0;
   border-top: 1px solid var(--color-border-default);
-  overflow: hidden;
+  overflow: visible;
+  z-index: 20;
 }
 
 .App-footer-field {
@@ -663,11 +664,12 @@
 }
 
 .App-footer-panel--expanded {
-  min-height: 320px;
+  min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-top: -80px;
 }
 
 .App-footer-contact {
@@ -918,6 +920,7 @@
 
   .App-footer-panel--expanded {
     min-height: 280px;
+    margin-top: -60px;
   }
 
   .App-footer-contact {
@@ -1112,6 +1115,7 @@
 
   .App-footer-panel--expanded {
     min-height: 260px;
+    margin-top: -50px;
   }
 
   .App-footer-contact {
