@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { UserX, Eye, ChevronDown, Mail, AtSign } from 'lucide-react';
+import { UserX, Eye, ChevronDown } from 'lucide-react';
 import LightRays from './components/LightRays';
 import ShinyText from './components/ShinyText';
 import BorderGlow from './components/BorderGlow';
@@ -121,7 +121,6 @@ function App() {
   const [sourceRect, setSourceRect] = useState(null);
   const [showPrivacy, setShowPrivacy] = useState(window.location.hash === '#/privacy');
   const [showAbout, setShowAbout] = useState(window.location.hash === '#/about');
-  const [contactExpanded, setContactExpanded] = useState(false);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -501,103 +500,39 @@ Instead of focusing on algorithms or endless scrolling, ShowUp focuses on helpin
           />
         </div>
         <div className="App-footer-content">
-          <motion.div
-            className={`App-footer-panel${contactExpanded ? ' App-footer-panel--expanded' : ''}`}
-            layout
-            transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-          >
-            <AnimatePresence mode="wait">
-              {!contactExpanded ? (
-                <motion.div
-                  key="footer-grid"
-                  className="App-footer-grid"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <div className="App-footer-col">
-                    <h4 className="App-footer-heading">Try ShowUp on</h4>
-                    <ul className="App-footer-links">
-                      <li><a href="#">iOS</a></li>
-                      <li><a href="#">Android</a></li>
-                    </ul>
-                  </div>
-                  <div className="App-footer-col">
-                    <h4 className="App-footer-heading">Developers</h4>
-                    <ul className="App-footer-links">
-                      <li><a href="#">API Overview</a></li>
-                      <li><a href="#">Documentation</a></li>
-                      <li><a href="#">Open Source</a></li>
-                      <li><a href="#">GitHub</a></li>
-                    </ul>
-                  </div>
-                  <div className="App-footer-col">
-                    <h4 className="App-footer-heading">Company</h4>
-                    <ul className="App-footer-links">
-                      <li><a href="#/about">About</a></li>
-                      <li>
-                        <button
-                          className="App-footer-contact-btn"
-                          onClick={() => setContactExpanded(true)}
-                        >
-                          Contact
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="App-footer-col">
-                    <h4 className="App-footer-heading">Resources</h4>
-                    <ul className="App-footer-links">
-                      <li><a href="#/privacy">Privacy Policy</a></li>
-                    </ul>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="footer-contact"
-                  className="App-footer-contact"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                >
-                  <h3 className="App-footer-contact-title">Get in Touch</h3>
-                  <p className="App-footer-contact-sub">
-                    Reach out. We read everything.
-                  </p>
-                  <div className="App-footer-contact-buttons">
-                    <a
-                      href="mailto:showupinbox.refocus327@passinbox.com"
-                      className="App-footer-contact-btn-large"
-                    >
-                      <Mail size={28} strokeWidth={1.5} />
-                      <span>Email</span>
-                    </a>
-                    <a
-                      href="https://instagram.com/showup.xyz"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="App-footer-contact-btn-large"
-                    >
-                      <AtSign size={28} strokeWidth={1.5} />
-                      <span>Instagram</span>
-                    </a>
-                  </div>
-                  <motion.button
-                    className="App-close-btn App-close-btn--footer"
-                    onClick={() => setContactExpanded(false)}
-                    initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 0.5, rotate: 90 }}
-                    transition={{ delay: 0.15, type: 'spring', stiffness: 360, damping: 22 }}
-                  >
-                    &times;
-                  </motion.button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
+          <div className="App-footer-panel">
+            <div className="App-footer-grid">
+              <div className="App-footer-col">
+                <h4 className="App-footer-heading">Try ShowUp on</h4>
+                <ul className="App-footer-links">
+                  <li><a href="#">iOS</a></li>
+                  <li><a href="#">Android</a></li>
+                </ul>
+              </div>
+              <div className="App-footer-col">
+                <h4 className="App-footer-heading">Developers</h4>
+                <ul className="App-footer-links">
+                  <li><a href="#">API Overview</a></li>
+                  <li><a href="#">Documentation</a></li>
+                  <li><a href="#">Open Source</a></li>
+                  <li><a href="#">GitHub</a></li>
+                </ul>
+              </div>
+              <div className="App-footer-col">
+                <h4 className="App-footer-heading">Company</h4>
+                <ul className="App-footer-links">
+                  <li><a href="#/about">About</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </div>
+              <div className="App-footer-col">
+                <h4 className="App-footer-heading">Resources</h4>
+                <ul className="App-footer-links">
+                  <li><a href="#/privacy">Privacy Policy</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
           <div className="App-footer-panel App-footer-panel--brand">
             <div className="App-footer-bottom">
               <LogoIcon size={50} style={{ opacity: 0.12 }} />
