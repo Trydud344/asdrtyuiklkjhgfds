@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { UserX, Eye, ChevronDown } from 'lucide-react';
+import { UserX, Eye, ChevronDown, Mail, AtSign, X, Code } from 'lucide-react';
 import LightRays from './components/LightRays';
 import ShinyText from './components/ShinyText';
 import BorderGlow from './components/BorderGlow';
@@ -121,6 +121,9 @@ function App() {
   const [sourceRect, setSourceRect] = useState(null);
   const [showPrivacy, setShowPrivacy] = useState(window.location.hash === '#/privacy');
   const [showAbout, setShowAbout] = useState(window.location.hash === '#/about');
+  const [isFooterContactOpen, setIsFooterContactOpen] = useState(false);
+  const [isFooterGithubOpen, setIsFooterGithubOpen] = useState(false);
+  const isFooterMenuOpen = isFooterContactOpen || isFooterGithubOpen;
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -130,6 +133,12 @@ function App() {
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  useLayoutEffect(() => {
+    if (showPrivacy || showAbout) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+  }, [showPrivacy, showAbout]);
 
   const openExpanded = (index, e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -500,8 +509,14 @@ Instead of focusing on algorithms or endless scrolling, ShowUp focuses on helpin
           />
         </div>
         <div className="App-footer-content">
-          <div className="App-footer-panel">
-            <div className="App-footer-grid">
+          <div
+            className={`App-footer-panel App-footer-panel--links ${isFooterContactOpen ? 'is-contact-open' : ''} ${isFooterGithubOpen ? 'is-github-open' : ''}`}
+          >
+            <div
+              className="App-footer-grid"
+              aria-hidden={isFooterMenuOpen}
+              inert={isFooterMenuOpen ? '' : undefined}
+            >
               <div className="App-footer-col">
                 <h4 className="App-footer-heading">Try ShowUp on</h4>
                 <ul className="App-footer-links">
@@ -513,16 +528,39 @@ Instead of focusing on algorithms or endless scrolling, ShowUp focuses on helpin
                 <h4 className="App-footer-heading">Developers</h4>
                 <ul className="App-footer-links">
                   <li><a href="#">API Overview</a></li>
-                  <li><a href="#">Documentation</a></li>
-                  <li><a href="#">Open Source</a></li>
-                  <li><a href="#">GitHub</a></li>
+                  <li><a href="/showup-documentation.pdf" target="_blank" rel="noreferrer">Documentation</a></li>
+                  <li>
+                    <button
+                      className="App-footer-link-button"
+                      type="button"
+                      aria-expanded={isFooterGithubOpen}
+                      onClick={() => {
+                        setIsFooterContactOpen(false);
+                        setIsFooterGithubOpen(true);
+                      }}
+                    >
+                      GitHub
+                    </button>
+                  </li>
                 </ul>
               </div>
               <div className="App-footer-col">
                 <h4 className="App-footer-heading">Company</h4>
                 <ul className="App-footer-links">
                   <li><a href="#/about">About</a></li>
-                  <li><a href="#">Contact</a></li>
+                  <li>
+                    <button
+                      className="App-footer-link-button"
+                      type="button"
+                      aria-expanded={isFooterContactOpen}
+                      onClick={() => {
+                        setIsFooterGithubOpen(false);
+                        setIsFooterContactOpen(true);
+                      }}
+                    >
+                      Contact
+                    </button>
+                  </li>
                 </ul>
               </div>
               <div className="App-footer-col">
@@ -530,6 +568,89 @@ Instead of focusing on algorithms or endless scrolling, ShowUp focuses on helpin
                 <ul className="App-footer-links">
                   <li><a href="#/privacy">Privacy Policy</a></li>
                 </ul>
+              </div>
+            </div>
+            <div
+              className="App-footer-contact"
+              aria-hidden={!isFooterContactOpen}
+              inert={!isFooterContactOpen ? '' : undefined}
+            >
+              <button
+                className="App-footer-contact-close"
+                type="button"
+                aria-label="Close contact options"
+                onClick={() => setIsFooterContactOpen(false)}
+              >
+                <X size={17} strokeWidth={2} />
+              </button>
+              <div className="App-footer-contact-actions">
+                <a className="App-footer-contact-button" href="mailto:showupinbox.refocus327@passinbox.com">
+                  <span className="App-footer-contact-icon">
+                    <Mail size={19} strokeWidth={2} />
+                  </span>
+                  <span className="App-footer-contact-copy">
+                    <span className="App-footer-contact-label">Email</span>
+                    <span className="App-footer-contact-value">showupinbox.refocus327@passinbox.com</span>
+                  </span>
+                </a>
+                <a
+                  className="App-footer-contact-button App-footer-contact-button--instagram"
+                  href="https://www.instagram.com/showup.xyz"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="App-footer-contact-icon">
+                    <AtSign size={19} strokeWidth={2} />
+                  </span>
+                  <span className="App-footer-contact-copy">
+                    <span className="App-footer-contact-label">Instagram</span>
+                    <span className="App-footer-contact-value">@showup.xyz</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div
+              className="App-footer-github"
+              aria-hidden={!isFooterGithubOpen}
+              inert={!isFooterGithubOpen ? '' : undefined}
+            >
+              <button
+                className="App-footer-contact-close"
+                type="button"
+                aria-label="Close GitHub repositories"
+                onClick={() => setIsFooterGithubOpen(false)}
+              >
+                <X size={17} strokeWidth={2} />
+              </button>
+              <div className="App-footer-contact-actions">
+                <a
+                  className="App-footer-contact-button"
+                  href="https://github.com/Trydud344/new-libre.git"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="App-footer-contact-icon">
+                    <Code size={19} strokeWidth={2} />
+                  </span>
+                  <span className="App-footer-contact-copy">
+                    <span className="App-footer-contact-label">Frontend</span>
+                    <span className="App-footer-contact-value">Trydud344/new-libre.git</span>
+                  </span>
+                </a>
+                <a
+                  className="App-footer-contact-button"
+                  href="https://github.com/Trydud344/protestbackend.git"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="App-footer-contact-icon">
+                    <Code size={19} strokeWidth={2} />
+                  </span>
+                  <span className="App-footer-contact-copy">
+                    <span className="App-footer-contact-label">Backend</span>
+                    <span className="App-footer-contact-value">Trydud344/protestbackend.git</span>
+                  </span>
+                </a>
               </div>
             </div>
           </div>
